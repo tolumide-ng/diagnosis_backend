@@ -1,0 +1,7 @@
+.git
+**/node_modules
+node_modules/
+.DS_Store
+.data
+.nyc_output
+.env

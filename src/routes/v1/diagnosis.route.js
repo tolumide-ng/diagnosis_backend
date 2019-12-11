@@ -9,8 +9,9 @@ import {
 const router = Router();
 
 router.post('/', createDiagnosis, DiagnosisController.createDiagnosis);
-router.put('/', modifyDiagnosis, DiagnosisController.modifyDiangosis);
+router.put('/:id', modifyDiagnosis, DiagnosisController.modifyDiangosis);
 router.get('/', DiagnosisController.getAllDiagnosis);
-router.get('/:diagnosisCode', getSpecificDiagnosis, DiagnosisController.getSpecificDiagnosis);
+router.get('/:id', getSpecificDiagnosis, DiagnosisController.getSpecificDiagnosis);
+router.delete('/:id', getSpecificDiagnosis, DiagnosisController.deleteDiagnosis);
 
 export default router;

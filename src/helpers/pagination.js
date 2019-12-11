@@ -16,6 +16,7 @@ class Pagination {
     const currentPage = page;
     const next = page < totalPages ? `${baseUrl}?${extraQuery}page=${page + 1}&limit=${limit}` : null;
 
+
     return {
       prev,
       currentPage,

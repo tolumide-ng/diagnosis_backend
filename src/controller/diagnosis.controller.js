@@ -14,13 +14,13 @@ class DiagnosisController {
       categoryTitle,
     } = req.body;
 
-    const diagnosis = await Baserepository.create(db.diagnosis, {
-      category_code: categoryCode,
-      diagnosis_code: diagnosisCode,
-      full_code: fullCode,
-      abbreviated_code: abbreviatedCode,
-      full_description: fullDescription,
-      category_title: categoryTitle,
+    const diagnosis = await Baserepository.create(db.Diagnosis, {
+      categoryCode,
+      diagnosisCode,
+      fullCode,
+      abbreviatedCode,
+      fullDescription,
+      categoryTitle,
     });
 
     return responseGenerator.sendSuccess(
@@ -32,6 +32,7 @@ class DiagnosisController {
   }
 
   static async modifyDiangosis(req, res) {
+    const { id } = req.params;
     const {
       categoryCode,
       diagnosisCode,
@@ -41,28 +42,35 @@ class DiagnosisController {
       categoryTitle,
     } = req.body;
 
-    const diagnosis = await Baserepository.findAndUpdate(db.diagnosis, {
-      category_code: categoryCode,
-      diagnosis_code: diagnosisCode,
-      full_code: fullCode,
-      abbreviated_code: abbreviatedCode,
-      full_description: fullDescription,
-      category_title: categoryTitle,
-    });
+    const diagnosis = await Baserepository.findAndUpdate(
+      db.Diagnosis,
+      {
+        categoryCode,
+        diagnosisCode,
+        fullCode,
+        abbreviatedCode,
+        fullDescription,
+        categoryTitle,
+      },
+      { id },
+    );
+    if(diagnosis[0] < 1){
+      return responseGenerator.sendError(res, 404, 'Resource not Found')
+    }
 
     return responseGenerator.sendSuccess(res, 200, { diagnosis });
   }
 
   static async deleteDiagnosis(req, res) {
     const { id } = req.params;
-    await Baserepository.remove(db.diagnosis, { id });
+    await Baserepository.remove(db.Diagnosis, { id });
 
     return responseGenerator.sendSuccess(res, 203, {});
   }
 
   static async getSpecificDiagnosis(req, res) {
     const { id } = req.params;
-    const specificDiagnosis = await Baserepository.findOneByField(db.diagnosis, { id });
+    const specificDiagnosis = await Baserepository.findOneByField(db.Diagnosis, { id });
     if (!specificDiagnosis) {
       return responseGenerator.sendError(res, 400, 'Diagnosis does not exist');
     }
@@ -70,20 +78,37 @@ class DiagnosisController {
   }
 
   static async getAllDiagnosis(req, res) {
-    const { page = 1 } = query;
+    const { page = 1 } = req.query;
     const paginate = new Pagination(page, req.query.limit);
     const { limit, offset } = paginate.getQueryMetadata();
-    const { count, rows } = await Baserepository.findAndCountAll(db.diagnosis);
+    const { count, rows: allDiagnosis } = await Baserepository.findAndCountAll(db.Diagnosis, {
+      limit,
+      offset,
+      attributes: [
+        'id',
+        'categoryCode',
+        'diagnosisCode',
+        'fullCode',
+        'abbreviatedCode',
+        'fullDescription',
+        'categoryTitle',
+      ],
+    });
 
+
+    if(allDiagnosis.length < 1){
+      return responseGenerator.sendError(res, 404, 'There are currently no diagnosis at the moment')
+    }
 
     return responseGenerator.sendSuccess(
       res,
       200,
-      articles,
+      allDiagnosis,
       null,
-      paginate.getPageMetadata(count, '/api/v1/articles')
+      paginate.getPageMetaData(count, '/api/v1/diagnos'),
     );
   }
+
 }
 
 export default DiagnosisController;
