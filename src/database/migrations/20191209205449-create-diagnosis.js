@@ -1,4 +1,3 @@
-
 module.exports = {
   up: (queryInterface, Sequelize) => queryInterface.createTable('Diagnoses', {
     id: {
@@ -7,30 +6,32 @@ module.exports = {
       primaryKey: true,
       type: Sequelize.INTEGER,
     },
-    category_code: {
+    categoryCode: {
       type: Sequelize.STRING,
     },
-    diagnosis_code: {
+    diagnosisCode: {
       type: Sequelize.STRING,
     },
-    full_code: {
+    fullCode: {
       type: Sequelize.STRING,
     },
-    abbreviated_code: {
+    abbreviatedCode: {
       type: Sequelize.STRING,
     },
-    full_description: {
+    fullDescription: {
       type: Sequelize.TEXT,
     },
-    category_title: {
+    categoryTitle: {
       type: Sequelize.STRING,
     },
     createdAt: {
       allowNull: false,
+      defaultValue: new Date(),
       type: Sequelize.DATE,
     },
     updatedAt: {
       allowNull: false,
+      defaultValue: new Date(),
       type: Sequelize.DATE,
     },
   }),

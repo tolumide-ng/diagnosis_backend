@@ -1,6 +1,3 @@
-import Sequelize from 'sequelize';
-import models from './database/models';
-
 class Baserepository {
   static async create(model, options) {
     return model.create(options);
@@ -21,6 +18,14 @@ class Baserepository {
     return model.destroy({
       where: { ...options },
     });
+  }
+
+  static async findAndCountAll(model, options) {
+    return model.findAndCountAll({ ...options, raw: true });
+  }
+
+  static async findAll(model, options) {
+    return model.findAll({ ...options, returning: true });
   }
 }
 

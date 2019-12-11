@@ -9,8 +9,8 @@ export const createDiagnosis = async (req, res, next) => {
     diagnosisCode: 'required|alpha_numeric',
     fullCode: 'required|alpha_numeric',
     abbreviatedCode: 'required|alpha_numeric',
-    fullDescription: 'required|alpha_numeric',
-    categoryTitle: 'required|alpha_numeric',
+    fullDescription: 'required|string',
+    categoryTitle: 'required|string',
   };
 
   const data = req.body;
@@ -32,8 +32,8 @@ export const modifyDiagnosis = async (req, res, next) => {
     diagnosisCode: 'alpha_numeric',
     fullCode: 'alpha_numeric',
     abbreviatedCode: 'alpha_numeric',
-    fullDescription: 'alpha_numeric',
-    categoryTitle: 'alpha_numeric',
+    fullDescription: 'string',
+    categoryTitle: 'string',
   };
 
   const data = req.body;
@@ -51,14 +51,14 @@ export const modifyDiagnosis = async (req, res, next) => {
 
 export const getSpecificDiagnosis = async (req, res, next) => {
   const rules = {
-    diagnosisCode: 'required|alpha_numeric',
+    id: 'required|number',
   };
   const data = req.params;
   try {
     sanitize(data, sanitizeRules);
     await validatorInstance.validateAll(data, rules, messages);
     next();
-} catch (error) {
+  } catch (error) {
     return responseGenerator.sendError(res, 400, error);
-}
+  }
 };
