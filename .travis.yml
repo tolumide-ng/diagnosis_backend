@@ -1,0 +1,21 @@
+language: node_js
+node_js:
+    - 'stable'
+dist: trusty
+cache:
+    directories:
+        - 'node_modules'
+services:
+    - postgresql
+env:
+    global:
+        - PGPORT=5432
+before_script:
+    - npm install
+    - npm run build
+    - psql -c 'create database diagnosis_backend;' -U postgres
+    - npm run reset:db
+script:
+    - npm test
+after_success:
+    - npm run coverage
