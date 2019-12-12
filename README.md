@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.com/tolumide-ng/diagnosis_backend.svg?branch=develop)](https://travis-ci.com/tolumide-ng/diagnosis_backend)
+[![Coverage Status](https://coveralls.io/repos/github/tolumide-ng/diagnosis_backend/badge.svg?branch=develop)](https://coveralls.io/github/tolumide-ng/diagnosis_backend?branch=develop)
 
 ### Onboarding on this Project
 
