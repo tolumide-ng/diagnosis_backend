@@ -7,11 +7,13 @@
         "lint": "eslint **/*.js",
         "lint:fix": "prettier-eslint **/**/*.{js,json} --write",
         "prettier": "prettier **/**/*.{js,json} --write",
-        "build:server": "babel /src --copy-files --out-dir build",
+        "build:server": "babel src --copy-files --out-dir build",
         "build": "npm run build:server",
         "dev": "nodemon --exec babel-node src/index",
+        "start": "npm run set:db && cd build && node index.js",
         "test": "NODE_ENV=test nyc --require @babel/register mocha src/test/**.spec.js --timeout 20000 --exit",
-        "set:db": "sequelize db:migrate:undo:all && sequelize db:migrate"
+        "set:db": "sequelize db:migrate",
+        "reset:db": "sequelize db:migrate:undo:all && sequelize db:migrate"
     },
     "repository": {
         "type": "git",

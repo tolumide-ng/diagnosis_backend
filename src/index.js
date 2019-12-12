@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import Routes from './routes/v1/index';
 
 dotenv.config();
+console.log('this is the port', process.env.PORT);
 
 const app = express();
 
@@ -35,7 +36,7 @@ app.use('*', (req, res) => {
 });
 
 const server = app.listen(process.env.PORT || 3000, () => {
-  process.stdout.write(`Listening on port ${server.address().port}`);
+  console.log(`Listening on port ${server.address().port}`);
 });
 
 export default app;

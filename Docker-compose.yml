@@ -2,17 +2,33 @@ version: '3.7'
 services:
     db:
         image: postgres
+        container_name: postgres
+        networks:
+            - webnet
         environment:
-            POSTGRES_PASSWORD: tolumide
-            POSTGRES_USER: tolumide
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_USER: postgres
             POSTGRES_DB: diagnosis_backend
         volumes:
-            - ./pgdata:/var/lib/postgresql/data
+            - pgdata:/var/lib/postgresql/data
         ports:
-            - '5432:5432'
+            - '5434:5432'
     web:
-        image: diagnosis_backend
+        build: .
         depends_on:
             - db
         ports:
-            - '4000:4000'
+            - '${PORT}:3000'
+        networks:
+            - webnet
+        environment:
+            DB_HOST: db
+            PORT: 3000
+            DATABASE_URL: 'postgres://tolumide:tolumide@db:5432/diagnosis_backend'
+        command:
+            ['./wait-for-it.sh', 'db:5434', '-t:0', '--', 'npm', 'run', 'start']
+networks:
+    webnet:
+volumes:
+    pgdata:
+    static_volume:
