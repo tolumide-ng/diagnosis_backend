@@ -12,3 +12,16 @@ export const createDiagnosis = async () => ({
   createdAt: new Date(),
   updatedAt: new Date(),
 });
+
+
+export class Response {
+  status(status) {
+    this.status = status;
+    return this;
+  }
+
+  send(data) {
+    this.data = data;
+    return this;
+  }
+}

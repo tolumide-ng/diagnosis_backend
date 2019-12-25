@@ -1,10 +1,10 @@
 import chai, { expect } from 'chai';
 import supertest from 'supertest';
-import app from '../index';
-import Baserepository from '../Baserepository';
-import db from '../database/models';
-import helpers from '../helpers/validatorUtils';
-import { createDiagnosis } from './utils';
+import app from '../../app';
+import Baserepository from '../../Baserepository';
+import db from '../../database/models';
+import helpers from '../../helpers/validatorUtils';
+import { createDiagnosis } from '../utils';
 
 const DIAGNOSIS_API = '/api/v1/diagnos';
 
