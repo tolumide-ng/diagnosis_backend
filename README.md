@@ -5,10 +5,11 @@
 
 1. Clone this repo and cd into it
 2. Create a local .env file as stated in the .env.sample file
-3. Run test in your local environment with `npm test`
-4. Paste this on your terminal to create your database: export DATABASE_URL='postgres://{username}:{password}@{host}:5432/{databaseName}'
-5. Run `docker-compose up --build`
-6. You can now make request to the endpoints as stated below
+3. Install all dependencies with `npm install`
+4. Run test in your local environment with `npm test`
+5. Paste this on your terminal to create your database: export DATABASE_URL='postgres://{username}:{password}@{host}:5432/{databaseName}'
+6. Run `docker-compose up --build`
+7. You can now make request to the endpoints as stated beloww
 
 ### Functionalities
 

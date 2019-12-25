@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import Pagination from '../helpers/pagination';
+import Pagination from '../../helpers/pagination';
 
 const PAGE = 2;
 const LIMIT = 1;
