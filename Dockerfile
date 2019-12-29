@@ -1,11 +1,10 @@
 FROM node:9
-RUN mkdir /src
-WORKDIR /src
-COPY package*.json ./
-COPY .sequelizerc ./
-COPY .babelrc ./
+USER node
+RUN mkdir /home/node/diagnosis/
+WORKDIR /home/node/diagnosis/
+COPY --chown=node:node package*.json .sequelizerc .babelrc ./
 RUN npm install
-COPY ./src ./src
+COPY --chown=node:node ./src ./src
 RUN npm run build:server
 ENV NODE_ENV production
 EXPOSE 3000
