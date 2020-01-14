@@ -19,7 +19,6 @@ export const createDiagnosis = async (req, res, next) => {
     sanitize(data, sanitizeRules);
 
     await validatorInstance.validateAll(data, rules, messages);
-
     next();
   } catch (error) {
     return responseGenerator.sendError(res, 400, error);
@@ -38,10 +37,12 @@ export const modifyDiagnosis = async (req, res, next) => {
 
   const data = req.body;
 
+
   try {
     sanitize(data, sanitizeRules);
 
     await validatorInstance.validateAll(data, rules, messages);
+
 
     next();
   } catch (error) {
